@@ -1,10 +1,6 @@
-# NotesBin
+# NoteBin
 
-<<<<<<< HEAD
-NotesBin is a web application designed for creating, editing, deleting, and sharing notes. It uses JWT for authorization and is built with a microservices architecture using Java. The front-end is built with React.
-=======
 NoteBin is a web application designed for creating, editing, deleting, sharing notes and ability to get friends and follow them. It uses JWT for authorization and is built with a microservices architecture using Java. The front-end is built with React.
->>>>>>> 47e37e0 (Friends service add | A little change of past front features | Better identity check add)
 
 ## Features
 
