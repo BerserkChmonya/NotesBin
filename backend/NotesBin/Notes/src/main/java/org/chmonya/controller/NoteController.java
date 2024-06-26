@@ -19,6 +19,7 @@ public class NoteController {
     @PostMapping("/save")
     public void saveNote(@RequestBody NoteRequestDto saveNoteRequest){
         Note note = saveNoteRequest.getNote();
+        System.out.println(note);
         String content = saveNoteRequest.getContent();
         noteService.saveNote(note, content);
     }
@@ -60,8 +61,8 @@ public class NoteController {
         noteService.updateTitle(link, title);
     }
 
-//    @GetMapping("/update-title")
-//    public String updateTitle(){
-//        return "Hello world";
-//    }
+    @PutMapping("/update-privacy")
+    public void updatePrivacy(@RequestParam String link, @RequestParam boolean isPrivate){
+        noteService.updatePrivacy(link, isPrivate);
+    }
 }

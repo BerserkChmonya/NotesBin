@@ -8,8 +8,8 @@ spring:
     name: notes-service
   datasource:
     username: 'postgres'
-    url: 'your-db-url'
-    password: 'your-db-password'
+    url: 'jdbc:postgresql://localhost:5432/notebin_db'
+    password: 'your_password_here'
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,5 +22,5 @@ spring:
 
 azure:
   storage:
-    account-url: 'your-storage-url'
-    sas-token: 'your-sas-token'
+    account-url: 'your_account_url_here'
+    sas-token: 'your_sas_token_here'

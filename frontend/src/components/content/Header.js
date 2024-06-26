@@ -1,4 +1,3 @@
-import * as React from 'react';
 import FriendsNavBar from './nav_elements/FriendsNavBar.js';
 import Navbar from './nav_elements/NavBar.js';
 

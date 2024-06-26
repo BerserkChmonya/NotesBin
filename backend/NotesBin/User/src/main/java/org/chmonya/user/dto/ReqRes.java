@@ -1,9 +1,9 @@
-package org.chmonya.user.Dto;
+package org.chmonya.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import org.chmonya.user.Entity.User;
+import org.chmonya.user.entities.User;
 
 
 import java.util.List;

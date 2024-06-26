@@ -1,4 +1,4 @@
-package org.chmonya.user.Entity;
+package org.chmonya.user.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

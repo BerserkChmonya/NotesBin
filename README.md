@@ -1,6 +1,10 @@
 # NotesBin
 
+<<<<<<< HEAD
 NotesBin is a web application designed for creating, editing, deleting, and sharing notes. It uses JWT for authorization and is built with a microservices architecture using Java. The front-end is built with React.
+=======
+NoteBin is a web application designed for creating, editing, deleting, sharing notes and ability to get friends and follow them. It uses JWT for authorization and is built with a microservices architecture using Java. The front-end is built with React.
+>>>>>>> 47e37e0 (Friends service add | A little change of past front features | Better identity check add)
 
 ## Features
 
@@ -8,7 +12,7 @@ NotesBin is a web application designed for creating, editing, deleting, and shar
 - Create, Edit, Delete Notes
 - Share Notes
 - Storing Notes text in cloud
-- (Coming Soon) Friends Feature
+- Friends System
 - (Coming Soon) Notifications Feature
 
 ## Tech Stack
@@ -33,12 +37,12 @@ NotesBin is a web application designed for creating, editing, deleting, and shar
 - User Service: Handles user-related operations
 - URLGenerator Service: Generates URLs for sharing notes
 - Notes Service: Manages note-related operations
-- (Coming Soon) Friends Service: Manages friend-related operations
+- Friends Service: Manages friend-related operations
 - (Coming Soon) Notifications Service: Handles notifications
 
 ## Future Plans
 
-After completing Friends and Notifications services and debugging, the plan is to make this application ready for real-world usage.
+After completing Notifications service and debugging, the plan is to make this application ready for real-world usage.
 
 ## Setup
 
@@ -59,6 +63,7 @@ Follow these steps to set up and run the project:
    - User Service: Port 8000
    - URLGenerator Service: Port 8040
    - Notes Service: Port 8020
+   - Friends Service: Port 8060
 
    To start each service, navigate to the respective service's directory and run the following command:
 

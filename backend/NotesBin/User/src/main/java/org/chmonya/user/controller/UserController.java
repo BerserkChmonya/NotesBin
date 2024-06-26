@@ -1,7 +1,6 @@
 package org.chmonya.user.controller;
 
-import org.chmonya.user.Dto.ReqRes;
-import org.chmonya.user.Entity.User;
+import org.chmonya.user.dto.ReqRes;
 import org.chmonya.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @PutMapping("/admin/update/{userId}")
-    public ResponseEntity<ReqRes> updateUser(@PathVariable Integer userId, @RequestBody User reqres){
+    public ResponseEntity<ReqRes> updateUser(@PathVariable Integer userId, @RequestBody ReqRes reqres){
         return ResponseEntity.ok(userService.updateUser(userId, reqres));
     }
 

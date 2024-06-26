@@ -91,6 +91,19 @@ class NoteService {
         }
     }
 
+    static async updatePrivacy(link, isPrivate, token){
+        try{
+            const response = await axios.put(`${NoteService.BASE_URL}/update-privacy`, null, {
+                params: {link: link, isPrivate: isPrivate},
+                headers: {Authorization: `Bearer ${token}`}
+            })
+            return response.data;
+
+        }catch(err){
+            throw err;
+        }
+    }
+
 }
 
 export default NoteService;

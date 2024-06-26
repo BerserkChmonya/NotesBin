@@ -8,22 +8,27 @@ import LoginForm from './authorization/LoginForm.js';
 import ProfilePage from './content/ProfilePage.js';
 import ContentPage from './content/ContentPage.js';
 import NotePage from './content/NotePage.js';
+import FriendPage from './content/FriendPage.js';
+import { FriendsProvider } from './context/FriendsContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Header logoSrc={logo} noteLogo={note_logo} pageTitle="NotesBin" />
-        <div className="content" style={{margin: "20px"}}>
-          <Routes>
-            <Route exact path="/" element={<LoginForm />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/page" element={<ContentPage />} />
-            <Route path="/note" element={<NotePage/>} />
-          </Routes>
+    <FriendsProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Header logoSrc={logo} noteLogo={note_logo} pageTitle="NotesBin" />
+          <div className="content" style={{margin: "20px"}}>
+            <Routes>
+              <Route exact path="/" element={<LoginForm />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/page" element={<ContentPage />} />
+              <Route path="/note" element={<NotePage/>} />
+              <Route path="/friend" element={<FriendPage/>}/>
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </FriendsProvider>
   );
 }
 

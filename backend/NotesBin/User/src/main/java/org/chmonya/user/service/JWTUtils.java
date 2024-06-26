@@ -9,7 +9,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 import io.jsonwebtoken.Claims;
@@ -34,7 +34,7 @@ public class JWTUtils {
                 .compact();
     }
 
-    public String generateRefreshToken(UserDetails userDetails, HashMap<String, Object> claims) {
+    public String generateRefreshToken(UserDetails userDetails, Map<String, Object> claims) {
         return Jwts.builder()
                 .claims(claims)
                 .subject(userDetails.getUsername())

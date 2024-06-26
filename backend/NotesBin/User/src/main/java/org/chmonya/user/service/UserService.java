@@ -1,8 +1,8 @@
 package org.chmonya.user.service;
 
-import org.chmonya.user.Entity.User;
+import org.chmonya.user.entities.User;
 import lombok.RequiredArgsConstructor;
-import org.chmonya.user.Dto.ReqRes;
+import org.chmonya.user.dto.ReqRes;
 import org.chmonya.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -161,7 +161,7 @@ public class UserService {
         return reqRes;
     }
 
-    public ReqRes updateUser(Integer userId, User updatedUser) {
+    public ReqRes updateUser(Integer userId, ReqRes updatedUser) {
         ReqRes reqRes = new ReqRes();
         try {
             Optional<User> userOptional = userRepository.findById(userId);

@@ -8,8 +8,8 @@ spring:
     name: url-gen-service
   datasource:
     username: 'postgres'
-    url: 'your-db-url'
-    password: 'your-db-password'
+    url: 'jdbc:postgresql://localhost:5432/notebin_db'
+    password: 'your_password_here'
     driver-class-name: org.postgresql.Driver
   data:
     redis:

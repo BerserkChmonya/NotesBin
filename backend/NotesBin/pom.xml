@@ -14,6 +14,7 @@
     <module>User</module>
       <module>Notes</module>
     <module>URLGenerator</module>
+    <module>Friends</module>
   </modules>
 
   <properties>

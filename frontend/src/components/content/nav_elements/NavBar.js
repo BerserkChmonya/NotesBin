@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import UserService from '../../../components/service/UserService';
 import searchButtonImage from '../../../Search-Button-PNG-Free-Image.png';
@@ -19,12 +19,13 @@ function Navbar() {
         if (confirmDelete) {
             UserService.logout();
             setIsAuthenticated(false);
+            localStorage.removeItem('userId');
         } else {
             event.preventDefault();
         }
     };
 
-    const handleSearch = (event) => {
+    const handleSearch = () => {
         navigate('/note', {state: {link: searchText}});
         setSearchText('');
     };

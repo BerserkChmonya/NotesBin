@@ -8,13 +8,18 @@ function NotePage() {
     const [note, setNote] = React.useState(null);
 
     const link = location.state.link;
-
-    React.useEffect(() => {
-        fetchNote(link);
-    }, [link]);
+    const title = location.state.title;
+    const content = location.state.content;
 
     const fetchNote = async (link) => {
         try {
+            if (title && content) {
+                setNote({
+                    title: title,
+                    content: content
+                });
+                return;
+            }
             const token = localStorage.getItem('token');
             const response = await NoteService.getNote(link, token);
             if (!response || response === null || response === "") {
@@ -23,19 +28,22 @@ function NotePage() {
             }
             setNote(response);
             setIsError(false);
-            console.log('response:', response);
         } catch (error) {
             setIsError(true);
             console.error('Error fetching notes:', error);
         }
     }
 
+    React.useEffect(() => {
+        fetchNote(link);
+    }, [link]);
+
     return (
         <div style={{height: "100vh"}}>
             {isError ? (
                 <h1>Wrong link</h1>
             ) : note ? (
-                <div>
+                <div style={{wordWrap: "break-word", overflowWrap: "break-word", maxWidth: "100%"}}>
                     <h2>{note.title}</h2>
                     <p>{note.content}</p>
                 </div>

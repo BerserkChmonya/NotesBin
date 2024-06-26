@@ -1,7 +1,7 @@
 package org.chmonya.user.repository;
 
 
-import org.chmonya.user.Entity.User;
+import org.chmonya.user.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

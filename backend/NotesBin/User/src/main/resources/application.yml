@@ -6,8 +6,8 @@ spring:
     name: user-service
   datasource:
     username: 'postgres'
-    url: 'your-db-url'
-    password: 'tour-db-password'
+    url: 'jdbc:postgresql://localhost:5432/notebin_db'
+    password: 'your_password_here'
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

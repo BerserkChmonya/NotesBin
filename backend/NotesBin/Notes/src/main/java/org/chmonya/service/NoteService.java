@@ -5,6 +5,9 @@ import org.chmonya.dto.TitledDto;
 import org.chmonya.dto.UpdateDto;
 import org.chmonya.entity.Note;
 import org.chmonya.repository.NoteRepository;
+import org.chmonya.user.entities.User;
+import org.chmonya.user.repository.UserRepository;
+import org.chmonya.user.service.JWTTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -19,9 +22,17 @@ public class NoteService {
     private RestTemplate restTemplate;
     @Autowired
     private BlobStorageService blobStorageService;
+    @Autowired
+    private JWTTokenProvider jwtTokenProvider;
+    @Autowired
+    private UserRepository userRepository;
 
 
     public void saveNote(Note note, String content) {
+        if (!validateUser(note.getUser().getId())) {
+            throw new IllegalArgumentException("Invalid user");
+        }
+
         String link = restTemplate.getForObject(
                 "http://localhost:8040/link/generate",
                 String.class
@@ -36,6 +47,10 @@ public class NoteService {
     }
 
     public List<NoteRequestDto> getNotesByUserId(int userId) {
+        if (!validateUser(userId)) {
+            throw new IllegalArgumentException("Invalid user");
+        }
+
         List<NoteRequestDto> notes_dto= new ArrayList<>();
         List<Note> notes = noteRepository.findByUserId(userId);
         for (Note note : notes) {
@@ -51,19 +66,26 @@ public class NoteService {
     public void deleteNote(String link) {
         Note note = noteRepository.findByLink(link);
         if (note != null) {
+            if (!validateUser(note.getUser().getId())) {
+                throw new IllegalArgumentException("Invalid user");
+            }
             noteRepository.delete(note);
             blobStorageService.deleteBlob(link);
         }
     }
 
     public void updateNote(UpdateDto updateDto) {
+        Note note = noteRepository.findByLink(updateDto.getLink());
+        if (!validateUser(note.getUser().getId())) {
+            throw new IllegalArgumentException("Invalid user");
+        }
         blobStorageService.updateBlob(updateDto.getLink(), updateDto.getContent());
     }
 
     public TitledDto getNote(String link) {
         try {
-            String title = noteRepository.findByLink(link).getTitle();
-            return new TitledDto(title, blobStorageService.downloadTextBlob(link));
+            Note note = noteRepository.findByLink(link);
+            return new TitledDto(note.getTitle(), blobStorageService.downloadTextBlob(link), note.getCreatedDate());
         } catch (Exception e) {
             System.out.println("Error while downloading blob with name " + link);
             return null;
@@ -76,7 +98,7 @@ public class NoteService {
         for (Note note : notes) {
             try {
                 if(note.isPrivate()) continue;
-                titledContent.add(new TitledDto( note.getTitle(), blobStorageService.downloadTextBlob(note.getLink()) ));
+                titledContent.add(new TitledDto( note.getTitle(), blobStorageService.downloadTextBlob(note.getLink()), note.getCreatedDate() ));
             } catch (Exception e) {
                 System.out.println("Error while downloading blob with name " + note.getLink());
             }
@@ -88,7 +110,24 @@ public class NoteService {
     public void updateTitle(String link, String title){
         System.out.println("Updating title of note with link " + link + " to " + title);
         Note note = noteRepository.findByLink(link);
+        if (!validateUser(note.getUser().getId())) {
+            throw new IllegalArgumentException("Invalid user");
+        }
         note.setTitle(title);
         noteRepository.save(note);
+    }
+
+    public void updatePrivacy(String link, boolean isPrivate){
+        Note note = noteRepository.findByLink(link);
+        if (!validateUser(note.getUser().getId())) {
+            throw new IllegalArgumentException("Invalid user");
+        }
+        note.setPrivate(isPrivate);
+        noteRepository.save(note);
+    }
+
+    private boolean validateUser(int userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+        return jwtTokenProvider.validateToken(user.getUsername());
     }
 }
