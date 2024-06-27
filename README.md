@@ -6,6 +6,7 @@ NoteBin is a web application designed for creating, editing, deleting, sharing n
 
 - User Authorization through JWT
 - Create, Edit, Delete Notes
+- Generating unique url names and withholding them in cache for very quick issuing
 - Share Notes
 - Storing Notes text in cloud
 - Friends System
