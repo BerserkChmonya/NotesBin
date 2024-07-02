@@ -9,7 +9,7 @@ spring:
   datasource:
     username: 'postgres'
     url: 'jdbc:postgresql://localhost:5432/notebin_db'
-    password: 'your_password_here'
+    password: 'wRGr3+5c'
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,5 +22,5 @@ spring:
 
 azure:
   storage:
-    account-url: 'your_account_url_here'
-    sas-token: 'your_sas_token_here'
+    account-url: 'https://chmonyastorage.blob.core.windows.net/nb-container?sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'
+    sas-token: 'sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'

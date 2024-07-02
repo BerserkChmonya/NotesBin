@@ -3,8 +3,12 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/Friends/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Friends/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Kafka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Kafka/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Notes/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/Notes/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Notifications/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Notifications/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/URLGenerator/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/URLGenerator/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/User/src/main/java" charset="UTF-8" />

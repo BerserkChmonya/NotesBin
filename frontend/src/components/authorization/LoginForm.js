@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import UserService from '../service/UserService';
@@ -73,6 +73,12 @@ function AuthPage() {
             });
         }
     };
+
+    useEffect(() => {
+        if (UserService.isAuthenticated()) {
+            navigate('/profile');
+        }
+    }, [navigate]);
 
     return (
         <div className='row justify-content-center' style={{maxWidth: "90vh", margin: "0 auto", minHeight: "100vh"}}>
