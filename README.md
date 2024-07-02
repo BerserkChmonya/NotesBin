@@ -24,6 +24,7 @@ NoteBin is a web application designed for creating, editing, deleting, sharing n
 - PostgreSQL
 - Redis
 - Azure Blob Storage
+- Kafka
 
 ### Front-end
 
