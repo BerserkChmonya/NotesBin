@@ -1,16 +1,17 @@
 # NoteBin
 
-NoteBin is a web application designed for creating, editing, deleting, sharing notes and ability to get friends and follow them. It uses JWT for authorization and is built with a microservices architecture using Java. The front-end is built with React.
+NoteBin is a robust web application designed for creating, editing, deleting, and sharing notes, with features for user interaction such as friend connections and notifications. It utilizes JWT for authorization and is built with a microservices architecture using Java for the backend and React for the frontend.
 
 ## Features
 
 - User Authorization through JWT
 - Create, Edit, Delete Notes
 - Generating unique url names and withholding them in cache for very quick issuing
-- Share Notes
-- Storing Notes text in cloud
-- Friends System
-- (Coming Soon) Notifications Feature
+- Sharing Notes
+- Storing Notes text in Azure Blob Storage
+- Friends System for connecting with other users
+- Real-time Notifications using Kafka and WebSocket (STOMP protocol)
+- Offline Notification Storage in the database for users who are not online
 
 ## Tech Stack
 
@@ -24,11 +25,17 @@ NoteBin is a web application designed for creating, editing, deleting, sharing n
 - PostgreSQL
 - Redis
 - Azure Blob Storage
-- Kafka
+- Kafka (for asynchronous communication between microservices)
+- WebSocket with STOMP (for real-time notifications)
 
 ### Front-end
 
 - React
+- Axios (for making HTTP requests)
+- WebSocket with STOMP (for real-time communication)
+- Bootstrap (for responsive design)
+- React-Bootstrap (for integrating Bootstrap components with React)
+- React Router DOM (for handling routing and navigation)
 
 ## Microservices
 
@@ -36,17 +43,17 @@ NoteBin is a web application designed for creating, editing, deleting, sharing n
 - URLGenerator Service: Generates URLs for sharing notes
 - Notes Service: Manages note-related operations
 - Friends Service: Manages friend-related operations
-- (Coming Soon) Notifications Service: Handles notifications
+- Notifications Service: Handles push notifications 
 
 ## Future Plans
 
-After completing Notifications service and debugging, the plan is to make this application ready for real-world usage.
+Little UI improvement, phone adaptation, tests, debugging, the plan is to make this application ready for real-world usage (Clusters, Load balancers, additional Caching, etc...).
 
 ## Setup
 
 Follow these steps to set up and run the project:
-1. **Redis Setup**
-    Redis runs on port 6379. A Docker Compose file is provided to start the Redis server. Run the following command:
+1. **Redis, Kafka Setup**
+    Redis runs on port 6379, Kafka on port 9092. A Docker Compose file is provided to start the Redis, Kafka servers. Run the following command:
 
     ```bash
     docker-compose up
@@ -80,3 +87,4 @@ Follow these steps to set up and run the project:
 
 ## License
 
+This project is licensed under the terms of the [LICENSE](./LICENSE) file located in the root directory.
