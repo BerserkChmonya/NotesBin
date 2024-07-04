@@ -1,0 +1,13 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: notification-service
+  kafka:
+    bootstrap-servers: kafka:9092,localhost:9093  # Comma-separated list of broker addresses
+    consumer:
+      group-id: my-consumer-group
+      auto-offset-reset: earliest  # Reset to earliest offset on startup
+    producer:
+      retries: 0  # Number of retries for sending messages

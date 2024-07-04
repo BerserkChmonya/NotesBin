@@ -1,0 +1,26 @@
+server:
+  port: 8020
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: notes-service
+  datasource:
+    username: 'postgres'
+    url: 'jdbc:postgresql://localhost:5432/notebin_db'
+    password: 'wRGr3+5c'
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+azure:
+  storage:
+    account-url: 'https://chmonyastorage.blob.core.windows.net/nb-container?sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'
+    sas-token: 'sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'
