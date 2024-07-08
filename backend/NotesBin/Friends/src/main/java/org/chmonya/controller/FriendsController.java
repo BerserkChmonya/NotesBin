@@ -47,4 +47,9 @@ public class FriendsController {
     public ResponseEntity<String> test(){
         return ResponseEntity.ok("Access granted!");
     }
+
+    @PostMapping("/test2")
+    public void kafkaTest(){
+        friendsService.kafkaTest();
+    }
 }

@@ -66,7 +66,7 @@ function FriendPage() {
                 )}
             </div>
             <div className='add-btn-container' style={{position: "fixed", bottom: '20px', right: '20px', width: "100vw"}}>
-                <button className='save-button request-button' onClick={() => handleDeleteFriend()} style={{backgroundColor: "red", padding: "4px 10px"}}>Delete friend</button>
+                <button className='save-button request-button shadow-sm' onClick={() => handleDeleteFriend()} style={{backgroundColor: "rgb(250, 40, 40)", padding: "4px 10px"}}>Delete friend</button>
             </div>
         </div>
     )

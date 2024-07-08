@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import UserService from '../service/UserService';
+import UpdatePswdModal from './UpdatePswdModal';
 
 function AuthPage() {
     const [activeTab, setActiveTab] = useState('login');
@@ -17,6 +18,7 @@ function AuthPage() {
     });
 
     const [error, setError] = useState('');
+    const [regError, setRegError] = useState(''); 
     const navigate = useNavigate();
 
     const handleLoginInputChange = (e) => {
@@ -53,17 +55,24 @@ function AuthPage() {
     const handleSubmitRegister = async (e) => {
         e.preventDefault();
         try {
-            await UserService.register(regData);
+            let response = await UserService.register(regData);
             setRegData({
                 name: '',
                 email: '',
                 password: '',
                 role: 'USER'
             });
-            alert('User registered successfully');
+            console.log(response);
+            if (response.statusCode !== 200) {
+                setRegError(response.message);
+                setTimeout(() => setRegError(''), 5000);
+            } else {
+                alert('User registered successfully');
+            }
         } catch (error) {
             console.error('Registration error:', error);
-            alert('An error occurred while registering user');
+            setRegError('An error occurred while registering user');
+            setTimeout(() => setRegError(''), 5000);
         } finally {
             setRegData({
                 name: '',
@@ -82,7 +91,7 @@ function AuthPage() {
 
     return (
         <div className='row justify-content-center' style={{maxWidth: "90vh", margin: "0 auto", minHeight: "100vh"}}>
-            <div className='col-4'>
+            <div className='col-10 col-sm-7 col-md-5 col-lg-5'>
                 <ul className='nav nav-pills nav-justified mb-3' id='ex1' role='tablist'>
                     <li className='nav-item' role='presentation'>
                         <button
@@ -136,6 +145,8 @@ function AuthPage() {
                             {error && <p className='error-message'>{error}</p>}
                             <button type='submit' className='btn btn-primary btn-block mb-4'>Sign In</button>
                         </form>
+                        {/* reset password modal */}
+                        <UpdatePswdModal />
                     </div>
 
                     <div className={classNames('tab-pane', 'fade', { 'show active': activeTab === 'register' })} id='pills-register'>
@@ -148,6 +159,7 @@ function AuthPage() {
                                     className='form-control'
                                     value={regData.name}
                                     onChange={handleRegInputChange}
+                                    minLength='4'
                                     required
                                 />
                                 <label className='form-label' htmlFor='registerName'>Name</label>
@@ -174,11 +186,13 @@ function AuthPage() {
                                     className='form-control'
                                     value={regData.password}
                                     onChange={handleRegInputChange}
+                                    minLength='4'
                                     required
                                 />
                                 <label className='form-label' htmlFor='registerPassword'>Password</label>
                             </div>
-
+                            
+                            {regError && <p className='error-message'>{regError}</p>}
                             <button type='submit' className='btn btn-primary btn-block mb-4'>Sign Up</button>
                         </form>
                     </div>

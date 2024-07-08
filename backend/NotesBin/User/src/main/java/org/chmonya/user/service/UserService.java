@@ -28,9 +28,16 @@ public class UserService {
     private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private EmailService emailService;
 
     public ReqRes register(ReqRes regRequest) {
         ReqRes resp = new ReqRes();
+        if (regRequest.getName().length() < 4 || regRequest.getPassword().length() < 4){
+            resp.setStatusCode(400);
+            resp.setMessage("Name and password must be at least 4 characters");
+            return resp;
+        }
 
         try {
             Matcher matcher = EMAIL_PATTERN.matcher(regRequest.getEmail());
@@ -45,12 +52,26 @@ public class UserService {
             user.setName(regRequest.getName());
             user.setRole(regRequest.getRole());
             user.setPassword(passwordEncoder.encode(regRequest.getPassword()));
-            User userResult = userRepository.save(user);
+            user.setEmailVerified(false);
+            if (userRepository.findByName(user.getName()).isPresent()) {
+                resp.setStatusCode(400);
+                resp.setMessage("User already exists");
+                return resp;
+            }
+    //  feature is unavailable(((
+//            if (!emailService.validateEmailAddress(user.getEmail())) {
+//                resp.setStatusCode(400);
+//                resp.setMessage("Email does not exists");
+//                return resp;
+//            }
+
+            User userResult= userRepository.save(user);
 
             if (userResult.getId()>0) {
                 resp.setUser(userResult);
                 resp.setMessage("User registered successfully");
                 resp.setStatusCode(200);
+                emailService.sendVerificationEmail(user.getEmail(), jwtUtils.generateToken(user));
             }
         }
         catch (Exception e) {
@@ -80,6 +101,42 @@ public class UserService {
         return resp;
     }
 
+    public boolean verifyEmail(String token) {
+        String name = jwtUtils.extractUsername(token);
+        User user;
+        try {
+            user = userRepository.findByName(name).orElseThrow();
+        } catch (Exception e) {
+            return false;
+        }
+        if (user.isEmailVerified()) {
+            return true;
+        }
+        user.setEmailVerified(true);
+        userRepository.save(user);
+        return true;
+    }
+
+    public void pswdResetEmail(String email) {
+        try {
+            User user = userRepository.findByEmail(email).orElseThrow();
+            String token = jwtUtils.generateToken(user);
+            emailService.sendPasswordResetEmail(email, token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error occurred: " + e.getMessage());
+        }
+    }
+
+    public void updatePassword(String token, String password) {
+        if (password.length() < 4) {
+            throw new RuntimeException("Password must be at least 4 characters");
+        }
+        String name = jwtUtils.extractUsername(token);
+        User user = userRepository.findByName(name).orElseThrow();
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+    }
 
     public ReqRes refreshToken(ReqRes refreshTokenRequest){
         ReqRes response = new ReqRes();

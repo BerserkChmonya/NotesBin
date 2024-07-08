@@ -24,6 +24,21 @@ public class UserController {
         return ResponseEntity.ok(userService.login(reqRes));
     }
 
+    @PostMapping("/auth/verify")
+    public boolean verifyEmail(@RequestParam String token) {
+        return userService.verifyEmail(token);
+    }
+
+    @PostMapping("/auth/reset-password")
+    public void resetPasswordEmail(@RequestParam String email) {
+        userService.pswdResetEmail(email);
+    }
+
+    @PutMapping("/auth/reset")
+    public void resetPassword(@RequestParam String token, @RequestParam String password) {
+        userService.updatePassword(token, password);
+    }
+
     @PostMapping("/auth/refresh")
     public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes req){
         return ResponseEntity.ok(userService.refreshToken(req));
@@ -38,7 +53,6 @@ public class UserController {
     @GetMapping("/admin/get-users/{userId}")
     public ResponseEntity<ReqRes> getUSerByID(@PathVariable Integer userId){
         return ResponseEntity.ok(userService.getUsersById(userId));
-
     }
 
     @PutMapping("/admin/update/{userId}")

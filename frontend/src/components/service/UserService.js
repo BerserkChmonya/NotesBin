@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class UserService {
-    static BASE_URL = "http://localhost:8000"
+    static BASE_URL = "http://localhost:8000";
 
     static async login(name, password){
         try{
@@ -42,6 +42,38 @@ class UserService {
     static isAuthenticated(){
         const token = localStorage.getItem('token')
         return !!token
+    }
+
+    static async verifyEmail(token){
+        try{
+            const response = await axios.post(`${UserService.BASE_URL}/auth/verify?token=${token}`)
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    static async sendResetPasswordEmail(email){
+        try{
+            const response = await axios.post(`${UserService.BASE_URL}/auth/reset-password?email=${email}`)
+            return response.data;
+        }catch(err){
+            throw err;
+        }
+    }
+
+    static async resetPassword(token, password){
+        try{
+            console.log("token: ", token);
+            const response = await axios.put(`${UserService.BASE_URL}/auth/reset`, null,
+                {
+                    params: {token: token, password: password}
+                }
+            )
+            return response.data;
+        }catch(err){
+            throw err;
+        }
     }
 }
 

@@ -37,7 +37,6 @@ function ContentPage() {
                 // Assuming you have a link and token to pass
                 const token = localStorage.getItem('token');
                 if (privateChange !== isPrivate) {
-                    console.log(privateChange);
                     try {
                         await NoteService.updatePrivacy(link, privateChange, token);
                     } catch (err) {
@@ -46,9 +45,11 @@ function ContentPage() {
                     setIsPrivate(privateChange);
                 }
 
-                await NoteService.updateNoteContent(link, text, token);
-                localStorage.setItem('content', text);
-                alert('Note updated successfully');
+                if (text !== localStorage.getItem('content')) {
+                    await NoteService.updateNoteContent(link, text, token);
+                    localStorage.setItem('content', text);
+                    alert('Note updated successfully');
+                }
             } catch (err) {
                 console.error(err);
                 alert('Failed to update note');
@@ -67,7 +68,11 @@ function ContentPage() {
                 content: text
             };
             const token = localStorage.getItem('token');
-            await NoteService.saveNote(requestData, token);
+            try{
+                await NoteService.saveNote(requestData, token);
+            } catch (err) {
+                console.error(err);
+            }
             navigate('/profile');
         }      
     };
@@ -75,7 +80,7 @@ function ContentPage() {
     const handleTitleSave = async () => {
         setIsEditingTitle(false);
         // Here you can also save the title to your backend
-        if (!isNew) {
+        if (!isNew && title !== localStorage.getItem('title')) {
             try{
                 const token = localStorage.getItem('token');
                 await NoteService.updateTitle(link, title, token);
@@ -112,6 +117,13 @@ function ContentPage() {
         isNew? setIsPrivate(event.target.checked): setPrivateChange(event.target.checked);
     };
 
+    const handleKeyTitle = (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevent the default action (newline)
+          handleTitleSave(); // Call the handleTitleSave function
+        }
+      };
+
     return (
         <div style={{height: '100vh'}}> 
             <div style={{display: "flex", alignItems: "center", justifyContent: "center", position: "relative"}}>
@@ -122,8 +134,8 @@ function ContentPage() {
                 </div>}
                 {isEditingTitle ? (
                     <div>
-                        <textarea autoFocus value={title} onChange={handleTitleChange} onKeyDown={handleKeyDown} style={{maxHeight: "40px", fontSize: "24px", minWidth: "300px", resize: "none"}}/>
-                        <button onClick={handleTitleSave} className='save-button'
+                        <textarea className='mb-1' onKeyPress={handleKeyTitle}  autoFocus value={title} onChange={handleTitleChange} onKeyDown={handleKeyDown} style={{maxHeight: "40px", fontSize: "24px", minWidth: "300px", resize: "none"}}/>
+                        <button onClick={handleTitleSave} className='save-button shadow-sm'
                         style={{ 
                             float: "none",
                             fontSize: '18px', 
@@ -138,7 +150,7 @@ function ContentPage() {
                     <h1 onClick={() => setIsEditingTitle(true)}>{title}</h1>
                 )}
                 
-                {!isNew && <button onClick={handleCopy} className='save-button copy-button'>Copy link</button>}
+                {!isNew && <button onClick={handleCopy} className='save-button copy-button shadow-sm'>Copy link</button>}
             </div>
             <textarea style={{width: '100%', height: '80%'}} value={text} onChange={handleChange} className='text-area'/>
             <div>
@@ -155,8 +167,8 @@ function ContentPage() {
                     <label htmlFor="privateCheck" style={{marginLeft: "5px", fontWeight: (isPrivate)? "bold": ""}}>Private</label>
                   </div>
                 }
-                {!isNew && <button onClick={handleDelete} className='save-button delete-button'>delete</button>}
-                <button onClick={handleSave} className='save-button'>Save</button>
+                {!isNew && <button onClick={handleDelete} className='save-button delete-button shadow-sm'>delete</button>}
+                <button onClick={handleSave} className='save-button shadow'>Save</button>
             </div>
         </div>
     );

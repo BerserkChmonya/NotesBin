@@ -4,6 +4,8 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
+  profiles:
+    active: local
   application:
     name: friends-service
   datasource:
@@ -19,3 +21,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
+  kafka:
+    bootstrap-servers: localhost:9092 # Comma-separated list of broker addresses
+    consumer:
+      group-id: my-consumer-group
+      auto-offset-reset: earliest  # Reset to earliest offset on startup
+    producer:
+      retries: 0  # Number of retries for sending messages
+
+mailgun:
+  api:
+    key: 'a3d9416faaf23b3550bdbc7a28b9ca85-623e10c8-e4284d05'
+  domain: 'sandbox5e90a657244040cc87c85e7278912058.mailgun.org'

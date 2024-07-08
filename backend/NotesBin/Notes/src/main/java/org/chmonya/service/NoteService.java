@@ -127,7 +127,7 @@ public class NoteService {
     }
 
     private boolean validateUser(int userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not validated with id: " + userId));
         return jwtTokenProvider.validateToken(user.getUsername());
     }
 }

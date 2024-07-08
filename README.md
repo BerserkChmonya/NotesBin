@@ -24,7 +24,6 @@ NoteBin is a web application designed for creating, editing, deleting, sharing n
 - PostgreSQL
 - Redis
 - Azure Blob Storage
-- Kafka
 
 ### Front-end
 
@@ -49,7 +48,7 @@ Follow these steps to set up and run the project:
     Redis runs on port 6379. A Docker Compose file is provided to start the Redis server. Run the following command:
 
     ```bash
-    docker-compose up
+    docker-compose upc
 
 2. **Database Setup**
     The application uses PostgreSQL for the database. Make sure you have PostgreSQL installed and running. Update the application properties in each service with your database connection details.

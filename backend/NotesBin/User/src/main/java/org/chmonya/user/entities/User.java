@@ -34,6 +34,8 @@ public class User implements UserDetails {
     private String password;
     @Column(nullable = false)
     private String role;
+    @Column(nullable = false)
+    private boolean emailVerified;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role));

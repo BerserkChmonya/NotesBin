@@ -10,6 +10,9 @@ import ContentPage from './content/ContentPage.js';
 import NotePage from './content/NotePage.js';
 import FriendPage from './content/FriendPage.js';
 import { FriendsProvider } from './context/FriendsContext';
+import VerificationPage from './authorization/VerificationPage.js';
+import UpdatePswdPage from './authorization/UpdatePswdModal.js';
+import ResetPasswordPage from './authorization/ResetPasswordPage.js';
 
 function App() {
   return (
@@ -22,8 +25,10 @@ function App() {
               <Route exact path="/" element={<LoginForm />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/page" element={<ContentPage />} />
-              <Route path="/note" element={<NotePage/>} />
-              <Route path="/friend" element={<FriendPage/>}/>
+              <Route path="/note" element={<NotePage />} />
+              <Route path="/friend" element={<FriendPage />}/>
+              <Route path="/verify" element={<VerificationPage />} />
+              <Route path="/reset" element={<ResetPasswordPage />} />
             </Routes>
           </div>
         </div>

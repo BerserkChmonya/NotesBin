@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   background-color: #eee9df;
+  overflow-y: auto;
 }
 
 .App-logo {
@@ -212,6 +213,7 @@
   white-space: nowrap; /* Prevents text from wrapping to the next line */
   overflow-x: hidden; 
   overflow-y: hidden;
+  box-sizing: border-box;
 }
 
 .search-button {
@@ -225,6 +227,7 @@
   margin-top: 1px;
   background-color: white;
   border: none;
+  position: relative;
 }
 
 .search-button-image {
@@ -232,9 +235,73 @@
   height: 23px; /* adjust as needed */
 }
 
+.nav-container {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+  margin-left: auto;
+  white-space: nowrap
+}
+
+.App-title.show {
+  margin-right: 20px;
+  margin-left: -20px;
+  display: block;
+}
+
+.App-logo.show {
+  display: block;
+}
+
+@media screen and (max-width: 1000px) {
+  .App-title {
+    display: none;
+  }
+
+  .App-logo {
+    display: none;
+  }
+
+  .note-logo {
+    margin-left: -20px;
+  }
+
+  .search-textarea{
+    margin-top: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .nav-item {
+    display: none;
+  }
+}
+
+.dropdown-toggle {
+  margin-top: 5px;
+  margin-left: 55px; /* Ensure some space between elements */
+  margin-right: -15px;
+}
+
+@media (min-width: 1001px) {
+  .dropdown-toggle {
+    display: none;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position dropdown below the toggle */
+  right: 0;
+  margin-top: 5px;
+  z-index: 1000;
+}
+
 .request-button {
   float: left;
-  margin-left: 55px;
+  margin-left: 40px;
   background: rgb(128,126,120);
 }
 
@@ -392,3 +459,26 @@
     left: 10%;
   }
 
+  .fixed-notifications {
+    position: fixed;
+    top: 7vh; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    z-index: 1000; /* Ensure it's above other content */
+    width: 30vh; /* Adjust the width as per your design */
+  }
+
+  @keyframes compress {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.87);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .animate-compress {
+    animation: compress 0.2s ease;
+  }

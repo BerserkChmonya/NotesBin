@@ -2,6 +2,7 @@ package org.chmonya.service;
 
 import org.chmonya.entities.Friendship;
 import org.chmonya.entities.RequestStatus;
+import org.chmonya.kafka.KafkaProducer;
 import org.chmonya.repository.FriendsRepository;
 import org.chmonya.user.entities.User;
 import org.chmonya.user.repository.UserRepository;
@@ -21,6 +22,11 @@ public class FriendsService {
     private UserRepository userRepository;
     @Autowired
     private JWTTokenProvider jwtTokenProvider;
+    private final KafkaProducer kafkaProducer;
+    @Autowired
+    public FriendsService(KafkaProducer kafkaProducer) {
+        this.kafkaProducer = kafkaProducer;
+    }
 
     public void addFriend(int user1_id, String friendName) {
         if (!validateUser(user1_id)) {
@@ -43,6 +49,8 @@ public class FriendsService {
                 .build();
 
         friendsRepository.save(friendship);
+
+        kafkaProducer.sendMessage("friend-topic", user1.getUsername() + " sent you a request|" + user2.getId());
     }
 
     public void acceptFriend(int user1_id, int user2_id) {
@@ -64,6 +72,8 @@ public class FriendsService {
             friendship.setStatus(RequestStatus.ACCEPTED);
             friendsRepository.save(friendship);
         }
+
+        kafkaProducer.sendMessage("friend-topic", user1.getUsername() + " accepted your request!|" + user2.getId());
     }
 
     public void rejectFriend(int user1_id, int user2_id) {
@@ -84,6 +94,8 @@ public class FriendsService {
         if (friendship != null) {
             friendsRepository.delete(friendship);
         }
+
+        kafkaProducer.sendMessage("friend-topic", user1.getUsername() + " rejected your request!|" + user2.getId());
     }
 
     public List<User> getFriends(int user_id) {
@@ -117,8 +129,11 @@ public class FriendsService {
     }
 
     private boolean validateUser(int userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not validated with id: " + userId));
         return jwtTokenProvider.validateToken(user.getUsername());
     }
 
+    public void kafkaTest() {
+        kafkaProducer.sendMessage("friend-topic", "Hello, Kafka!");
+    }
 }
