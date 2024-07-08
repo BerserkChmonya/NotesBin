@@ -7,7 +7,7 @@ spring:
   datasource:
     username: 'postgres'
     url: 'jdbc:postgresql://localhost:5432/notebin_db'
-    password: 'wRGr3+5c'
+    password: 'postgres'
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
