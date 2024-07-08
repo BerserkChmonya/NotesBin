@@ -25,11 +25,8 @@ NoteBin is a robust web application designed for creating, editing, deleting, an
 - PostgreSQL
 - Redis
 - Azure Blob Storage
-<<<<<<< HEAD
-=======
 - Kafka (for asynchronous communication between microservices)
 - WebSocket with STOMP (for real-time notifications)
->>>>>>> origin/main
 
 ### Front-end
 
@@ -50,7 +47,7 @@ NoteBin is a robust web application designed for creating, editing, deleting, an
 
 ## Future Plans
 
-Little UI improvement, phone adaptation, tests, debugging, the plan is to make this application ready for real-world usage (Clusters, Load balancers, additional Caching, etc...).
+Little UI improvement, tests, debugging, the plan is to make this application ready for real-world usage (Clusters, Load balancers, additional Caching, etc...).
 
 ## Setup
 
