@@ -85,6 +85,19 @@ function ProfilePage() {
         }
     };
 
+    const fetchFriendRequests = async (token, userId) => {
+        try {
+            const response = await FriendsService.getFriendRequests(token, userId);
+            setFriendRequests(response.map(({id, name}) => ({
+                id: id,
+                name: name
+            })
+            ));
+        } catch (error) {
+            console.error('Error fetching friend requests:', error);
+        }
+    };
+
     const handleSocketNotification = (message) => {
         try {
             const notificationObject = JSON.parse(message);
@@ -121,6 +134,20 @@ function ProfilePage() {
         }
     }; 
 
+    const fetchNotifications = async (token, userId) => {
+        try {
+            const response = await NotificationService.getNotifications(token, userId);
+            const notificationsArray = response.map(({ id, message }) => ({
+                id, // Shorthand for id: id
+                message // Shorthand for message: message
+            }));
+
+            setNotifications([...notifications, ...notificationsArray]);
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    };
+
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem('token'); // Retrieve the token from localStorage
@@ -145,33 +172,6 @@ function ProfilePage() {
             console.error('Error fetching profile information:', error);
         }
     };   
-
-    const fetchFriendRequests = async (token, userId) => {
-        try {
-            const response = await FriendsService.getFriendRequests(token, userId);
-            setFriendRequests(response.map(({id, name}) => ({
-                id: id,
-                name: name
-            })
-            ));
-        } catch (error) {
-            console.error('Error fetching friend requests:', error);
-        }
-    };
-
-    const fetchNotifications = async (token, userId) => {
-        try {
-            const response = await NotificationService.getNotifications(token, userId);
-            const notificationsArray = response.map(({ id, message }) => ({
-                id, // Shorthand for id: id
-                message // Shorthand for message: message
-            }));
-
-            setNotifications([...notifications, ...notificationsArray]);
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-        }
-    };
     
     useEffect(() => {
         fetchProfile();
@@ -183,7 +183,7 @@ function ProfilePage() {
         // Initialize WebSocket connection
         let userId = localStorage.getItem('userId');
         
-        const socketUrl = `http://localhost:8090/ws`; // Construct WebSocket URL with token
+        const socketUrl = 'http://localhost:8090/ws'; // Construct WebSocket URL with token
         const socket = new SockJS(socketUrl); // Create WebSocket instance with token in URL
         const client = new Client({
             webSocketFactory: () => socket,
@@ -295,7 +295,7 @@ function ProfilePage() {
                         </button> : null
                     ))
                 ) : (
-                    <h5>You don't have notes yet...</h5>
+                    <h5>You don&apos;t have notes yet...</h5>
                 )}
             </div>
             {/* requests button | area */}
@@ -338,7 +338,7 @@ function ProfilePage() {
                     </div>
                 </Collapse>
                 
-                <button className='save-button shadow' onClick={() => {navigate('/page'); localStorage.setItem('userId', profileInfo.id);}}>Add</button>
+                <button className='save-button shadow add-button' onClick={() => {navigate('/page'); localStorage.setItem('userId', profileInfo.id);}}>Add</button>
             </div>
         </div>
     );

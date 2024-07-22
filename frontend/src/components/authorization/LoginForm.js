@@ -62,7 +62,6 @@ function AuthPage() {
                 password: '',
                 role: 'USER'
             });
-            console.log(response);
             if (response.statusCode !== 200) {
                 setRegError(response.message);
                 setTimeout(() => setRegError(''), 5000);
@@ -146,6 +145,9 @@ function AuthPage() {
                             <button type='submit' className='btn btn-primary btn-block mb-4'>Sign In</button>
                         </form>
                         {/* reset password modal */}
+                        <div className='d-lg-none d-block'>
+                            <button className='btn btn-link text-black p-0' onClick={() => setActiveTab('register')}>sign up</button>
+                        </div>
                         <UpdatePswdModal />
                     </div>
 
@@ -195,6 +197,9 @@ function AuthPage() {
                             {regError && <p className='error-message'>{regError}</p>}
                             <button type='submit' className='btn btn-primary btn-block mb-4'>Sign Up</button>
                         </form>
+                        <div className='d-lg-none d-block'>
+                            <button className='btn btn-link text-black p-0' onClick={() => setActiveTab('login')}>sign in</button>
+                        </div>
                     </div>
                 </div>
             </div>

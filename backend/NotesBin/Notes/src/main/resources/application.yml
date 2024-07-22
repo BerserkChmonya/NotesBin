@@ -9,7 +9,7 @@ spring:
   datasource:
     username: 'postgres'
     url: 'jdbc:postgresql://localhost:5432/notebin_db'
-    password: 'wRGr3+5c'
+    password: 'postgres'
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -22,10 +22,10 @@ spring:
 
 azure:
   storage:
-    account-url: 'https://chmonyastorage.blob.core.windows.net/nb-container?sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'
-    sas-token: 'sp=racwdl&st=2024-06-08T14:08:40Z&se=2024-07-08T22:08:40Z&sv=2022-11-02&sr=c&sig=7Np%2Froe3BchiCn0fTRHxRFpvwrdoHPpFaRm7gI4AYvk%3D'
+    account-url: ''
+    sas-token: ''
 
 mailgun:
   api:
-    key: 'a3d9416faaf23b3550bdbc7a28b9ca85-623e10c8-e4284d05'
-  domain: 'sandbox5e90a657244040cc87c85e7278912058.mailgun.org'
+    key: ''
+  domain: ''

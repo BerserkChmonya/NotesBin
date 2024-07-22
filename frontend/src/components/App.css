@@ -309,6 +309,22 @@
   background: rgb(78, 77, 74);
 }
 
+@media screen and (min-width: 1500px) {
+  .notes-container {
+    width: 60vw;
+  }
+
+  .request-button {
+    margin-left: 100px;
+    margin-bottom: 20px;
+  }
+
+  .add-button {
+    margin-right: 60px;
+    margin-bottom: 20px;
+  }
+}
+
 .check-button {
   width: 26px; /* Match the circular image's width */
   height: 26px; /* Match the circular image's height */

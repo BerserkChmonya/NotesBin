@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import NoteService from '../service/NoteService';
 
@@ -55,8 +55,7 @@ function ContentPage() {
                 alert('Failed to update note');
             }
         } else {
-            // Here you can save the note to your backend
-            console.log(isPrivate);
+            // save the note to the backend
             const requestData = {
                 note: {
                     title: title,
