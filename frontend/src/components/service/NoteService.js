@@ -28,7 +28,6 @@ class NoteService {
     }
  
     static async saveNote(requestData, token){
-        console.log('requestData:', requestData);
         try{
             const response = await axios.post(`${NoteService.BASE_URL}/save`, requestData, {
                 headers: {Authorization: `Bearer ${token}`}
@@ -79,8 +78,6 @@ class NoteService {
     }
 
     static async getNote(link, token) {
-        console.log('link:', link);
-        console.log('token:', token);
         try {
             const response = await axios.get(`${NoteService.BASE_URL}/get-note?link=${link}`, {
                 headers: {Authorization: `Bearer ${token}`}

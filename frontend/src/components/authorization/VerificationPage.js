@@ -9,7 +9,6 @@ function VerificationPage() {
     const fetchVerification = async (token) => {
         try {
             const response = await UserService.verifyEmail(token);
-            console.log("response: ", response);
             setVerified(response);
         } catch (error) {
             console.error("Error verifying email: ", error);
@@ -24,11 +23,10 @@ function VerificationPage() {
         const token = urlParams.get('token');
         
         if (token) {
-            console.log("Token found: ", token);
             setToken(token);
             fetchVerification(token);
         } else {
-            console.log("Token not found in the URL");
+            console.error("Token not found in the URL");
         }
     }, []);
   

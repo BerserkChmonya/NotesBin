@@ -15,7 +15,6 @@ function ResetPasswordPage() {
     const token = urlParams.get('token');
 
     if (token) {
-      console.log("Token found: ", token);
       setToken(token);
     } else {
       console.error("Error reseting password");
@@ -26,7 +25,6 @@ function ResetPasswordPage() {
   const resetPassword = async (password, token) => {
     try {
       const response = await UserService.resetPassword(token, password);
-      console.log("response: ", response);
       setIsUpdated(true);
     } catch (error) {
       setError("Error reseting password");
@@ -68,9 +66,6 @@ function ResetPasswordPage() {
                 <form onSubmit={handleSubmit}>
                   <div className="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>Holy Sh..!</strong> You should check in on some of those fields below.
-            <a className="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </a>
           </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Your new password</label>

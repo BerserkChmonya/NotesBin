@@ -58,7 +58,7 @@ function UpdatePswdModal() {
                             </div>
                             <div className="modal-body px-5">
                                 <p className="py-2">
-                                    Enter your email address and we'll send you an email with instructions to reset your password.
+                                    Enter your email address and we will send you an email with instructions to reset your password.
                                 </p>
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-outline">

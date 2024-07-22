@@ -64,7 +64,6 @@ class UserService {
 
     static async resetPassword(token, password){
         try{
-            console.log("token: ", token);
             const response = await axios.put(`${UserService.BASE_URL}/auth/reset`, null,
                 {
                     params: {token: token, password: password}

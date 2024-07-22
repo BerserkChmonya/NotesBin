@@ -11,7 +11,6 @@ import NotePage from './content/NotePage.js';
 import FriendPage from './content/FriendPage.js';
 import { FriendsProvider } from './context/FriendsContext';
 import VerificationPage from './authorization/VerificationPage.js';
-import UpdatePswdPage from './authorization/UpdatePswdModal.js';
 import ResetPasswordPage from './authorization/ResetPasswordPage.js';
 
 function App() {

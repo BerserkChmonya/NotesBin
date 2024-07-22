@@ -2,13 +2,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NoteService from "../service/NoteService";
 import FriendsService from "../service/FriendsService";
-import { useFriends } from '../context/FriendsContext';
 
 function FriendPage() {
     const [notes, setNotes] = useState([]); 
     const location = useLocation();
     const navigate = useNavigate();
-    const { friends, setFriends } = useFriends();
 
     const queryParams = new URLSearchParams(location.search);
     const name = queryParams.get('name');
@@ -18,7 +16,6 @@ function FriendPage() {
         try {
             const token = localStorage.getItem('token');
             const response = await NoteService.getFriendNotes(token, userId);
-            console.log('response:', response);
             response.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
             setNotes(response.map(({title, content}) => ({
                 title: title,
@@ -31,7 +28,7 @@ function FriendPage() {
 
     useEffect(() => {
         fetchNotes(id);
-    }, []);
+    }, [id]);
 
     const handleNoteClick = (note) => {
         navigate('/note', { state: { content: note.content, title: note.title} });
@@ -62,7 +59,7 @@ function FriendPage() {
                         </button> : null
                     ))
                 ) : (
-                    <h5>{name} doens't have notes yet...</h5>
+                    <h5>{name} doens&apos;t have notes yet...</h5>
                 )}
             </div>
             <div className='add-btn-container' style={{position: "fixed", bottom: '20px', right: '20px', width: "100vw"}}>
