@@ -22,10 +22,10 @@ spring:
 
 azure:
   storage:
-    account-url: ''
-    sas-token: ''
+    account-url: 'account-url'
+    sas-token: 'sas-token'
 
 mailgun:
   api:
-    key: ''
-  domain: ''
+    key: 'key'
+  domain: 'domain'

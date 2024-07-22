@@ -20,5 +20,5 @@ spring:
 
 mailgun:
   api:
-    key: ''
-  domain: ''
+    key: 'key'
+  domain: 'domain'

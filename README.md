@@ -1,6 +1,6 @@
-# NoteBin
+# NotesBin
 
-NoteBin is a robust web application designed for creating, editing, deleting, and sharing notes, with features for user interaction such as friend connections and notifications. It utilizes JWT for authorization and is built with a microservices architecture using Java for the backend and React for the frontend.
+NoteBin is a web application designed for creating, editing, deleting, and sharing notes, with features for user interaction such as friend connections and notifications. It utilizes JWT, e-mail for authorization and is built with a microservices architecture using Java for the backend and React for the frontend.
 
 ## Features
 
@@ -12,6 +12,8 @@ NoteBin is a robust web application designed for creating, editing, deleting, an
 - Friends System for connecting with other users
 - Real-time Notifications using Kafka and WebSocket (STOMP protocol)
 - Offline Notification Storage in the database for users who are not online
+- Email verification
+- Password reset with help of e-mail with link
 
 ## Tech Stack
 
@@ -25,11 +27,9 @@ NoteBin is a robust web application designed for creating, editing, deleting, an
 - PostgreSQL
 - Redis
 - Azure Blob Storage
-<<<<<<< HEAD
-=======
 - Kafka (for asynchronous communication between microservices)
 - WebSocket with STOMP (for real-time notifications)
->>>>>>> origin/main
+- MailGun (for sending mails: Email verification/Password reset)
 
 ### Front-end
 
@@ -50,7 +50,7 @@ NoteBin is a robust web application designed for creating, editing, deleting, an
 
 ## Future Plans
 
-Little UI improvement, phone adaptation, tests, debugging, the plan is to make this application ready for real-world usage (Clusters, Load balancers, additional Caching, etc...).
+Little UI improvement, tests, debugging, the plan is to make this application ready for real-world usage (Clusters, Load balancers, additional Caching, etc...).
 
 ## Setup
 
